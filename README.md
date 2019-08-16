@@ -34,8 +34,8 @@ php bin/console server:run
 
 👤 **elyukai (Lukas Obermann)**
 
-* Twitter: [@onyxmoon_](https://twitter.com/elyukai)
-* Github: [@Onyxmoon](https://github.com/elyukai/)
+* Twitter: [@elyukai](https://twitter.com/elyukai)
+* Github: [@elyukai](https://github.com/elyukai/)
 
 ## 🤝 Contributing
 
