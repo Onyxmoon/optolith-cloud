@@ -32,6 +32,11 @@ php bin/console server:run
 * Twitter: [@onyxmoon_](https://twitter.com/onyxmoon_)
 * Github: [@Onyxmoon](https://github.com/Onyxmoon)
 
+👤 **elyukai (Lukas Obermann)**
+
+* Twitter: [@onyxmoon_](https://twitter.com/elyukai)
+* Github: [@Onyxmoon](https://github.com/elyukai/)
+
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Onyxmoon/optolith-cloud/issues).
