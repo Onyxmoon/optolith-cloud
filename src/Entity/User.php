@@ -60,7 +60,7 @@ class User implements UserInterface
         $this->characters = new ArrayCollection();
     }
 
-    public function getId(): UuidInterface
+    public function getId(): ?string
     {
         return $this->id;
     }

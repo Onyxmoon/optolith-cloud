@@ -44,7 +44,7 @@ class Character
      */
     private $owner;
 
-    public function getId(): UuidInterface
+    public function getId(): ?string
     {
         return $this->id;
     }
