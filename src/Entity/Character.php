@@ -44,6 +44,11 @@ class Character
      */
     private $owner;
 
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $modifiedDate;
+
     public function getId(): ?string
     {
         return $this->id;
@@ -105,6 +110,18 @@ class Character
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getModifiedDate(): ?\DateTimeInterface
+    {
+        return $this->modifiedDate;
+    }
+
+    public function setModifiedDate(\DateTimeInterface $modifiedDate): self
+    {
+        $this->modifiedDate = $modifiedDate;
 
         return $this;
     }
