@@ -19,12 +19,12 @@ class Character
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $displayName;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="blob", nullable=true)
      */
     private $displayPicture;
 
@@ -39,17 +39,22 @@ class Character
     private $data = [];
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $lastModificationDate;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $checksum;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="characters")
      * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
 
-    /**
-     * @ORM\Column(type="datetimetz")
-     */
-    private $modifiedDate;
-
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -66,12 +71,12 @@ class Character
         return $this;
     }
 
-    public function getDisplayPicture(): ?string
+    public function getDisplayPicture()
     {
         return $this->displayPicture;
     }
 
-    public function setDisplayPicture(?string $displayPicture): self
+    public function setDisplayPicture($displayPicture): self
     {
         $this->displayPicture = $displayPicture;
 
@@ -102,6 +107,30 @@ class Character
         return $this;
     }
 
+    public function getLastModificationDate(): ?\DateTimeInterface
+    {
+        return $this->lastModificationDate;
+    }
+
+    public function setLastModificationDate(\DateTimeInterface $lastModificationDate): self
+    {
+        $this->lastModificationDate = $lastModificationDate;
+
+        return $this;
+    }
+
+    public function getChecksum(): ?string
+    {
+        return $this->checksum;
+    }
+
+    public function setChecksum(string $checksum): self
+    {
+        $this->checksum = $checksum;
+
+        return $this;
+    }
+
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -110,18 +139,6 @@ class Character
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
-
-        return $this;
-    }
-
-    public function getModifiedDate(): ?\DateTimeInterface
-    {
-        return $this->modifiedDate;
-    }
-
-    public function setModifiedDate(\DateTimeInterface $modifiedDate): self
-    {
-        $this->modifiedDate = $modifiedDate;
 
         return $this;
     }

@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Optolith Character Generator - Cloud 👋</h1>
+<h1 align="center">Welcome to Optolith Character Generator - Sync 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://spdx.org/licenses/MPL-2.0.html">
@@ -9,9 +9,9 @@
   </a>
 </p>
 
-> This repository contains the development data of the server for a cloud infrastructure service for Optolith Character Manager (https://github.com/elyukai/optolith-client).
+> This repository contains the development data of the server for a cloud sync  infrastructure service for Optolith Character Manager (https://github.com/elyukai/optolith-client).
 
-### 🏠 [Homepage](cloud.optolith.app)
+### 🏠 [Homepage](sync.optolith.app)
 
 ## Install
 
@@ -39,7 +39,7 @@ php bin/console server:run
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Onyxmoon/optolith-cloud/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Onyxmoon/optolith-sync/issues).
 
 ## Show your support
 
