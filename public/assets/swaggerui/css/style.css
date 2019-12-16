@@ -1,0 +1,155 @@
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-Bold.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: italic;
+    font-weight: 700;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-BoldItalic.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: normal;
+    font-weight: 300;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-Light.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: italic;
+    font-weight: 300;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-LightItalic.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-Medium.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: italic;
+    font-weight: 500;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-MediumItalic.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-Regular.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans";
+    font-style: italic;
+    font-weight: 400;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSans-Italic.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-Bold.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: italic;
+    font-weight: 700;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-BoldItalic.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: normal;
+    font-weight: 300;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-Light.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: italic;
+    font-weight: 300;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-LightItalic.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-Medium.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: italic;
+    font-weight: 500;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-MediumItalic.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-Regular.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "Alegreya Sans SC";
+    font-style: italic;
+    font-weight: 400;
+    src: url("/assets/fonts/AlegreyaSans/AlegreyaSansSC-Italic.otf") format("opentype")
+}
+
+#swagger-ui > section > div.swagger-ui > div:nth-child(2) > div.information-container.wrapper > section > div > div > div > div > p {
+    font-family: "Alegreya Sans", sans-serif !important;
+    font-size: 17px;
+}
+
+.swagger-ui .opblock-tag, .swagger-ui .opblock .opblock-section-header label, .swagger-ui .opblock .opblock-section-header h4, .swagger-ui .opblock .opblock-summary-method, .swagger-ui .tab li, .swagger-ui .scheme-container .schemes>label, .swagger-ui .loading-container .loading:after, .swagger-ui .btn, .swagger-ui .btn.cancel, .swagger-ui select, .swagger-ui label, .swagger-ui .dialog-ux .modal-ux-content h4, .swagger-ui .dialog-ux .modal-ux-header h3, .swagger-ui section.models h4, .swagger-ui section.models h5, .swagger-ui .model-title, .swagger-ui .parameter__name, .swagger-ui .topbar a, .swagger-ui .topbar .download-url-wrapper .download-url-button, .swagger-ui .info .title small pre, .swagger-ui .scopes h2, .swagger-ui .errors-wrapper hgroup h4 {
+    font-family: "Alegreya Sans", sans-serif !important;
+}
+
+.swagger-ui .opblock .opblock-summary-description {
+    font-family: "Alegreya Sans", sans-serif !important;
+    font-size: 15px;
+}
+
+.swagger-ui {
+    font-family: "Alegreya Sans", sans-serif !important;
+}
+
+#swagger-ui.api-platform .info .title {
+    font-family: "Alegreya Sans", sans-serif !important;
+    color: #3c3c3c;
+}
+
+
+:root {
+    --gold : #79643c;
+}
+
+header:before {
+    background-color: #f0f0f0;
+}
+
+header #logo object {
+    height: 50px;
+}
+
+#swagger-ui > section > div.swagger-ui > div:nth-child(2) > div.information-container.wrapper > section > div > div > hgroup > h2 > span > small:nth-child(1) {
+    background-color: var(--gold) !important;
+}
+
+#swagger-ui > section > div.swagger-ui > div:nth-child(2) > div.information-container.wrapper > section > div > div > hgroup > h2 > span > small:nth-child(2) {
+    background-color: var(--gold) !important;
+}

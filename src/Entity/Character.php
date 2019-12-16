@@ -3,11 +3,26 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Validator\IsValidOwner;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *          "post"={"security"="is_granted('ROLE_USER')"}
+ *     },
+ *     itemOperations={
+ *         "get"={"security"="is_granted('ROLE_ADMIN') or object.getOwner() == user"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN') or object.getOwner() == user"},
+ *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.getOwner() == user and previous_object.getOwner() == user)"},
+ *         "patch"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.getOwner() == user and previous_object.getOwner() == user)"}
+ *     },
+ *     normalizationContext={"groups"={"character:read"}},
+ *     denormalizationContext={"groups"={"character:write"}},
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\CharacterRepository")
+ * @ORM\EntityListeners({"App\Doctrine\CharacterEntityListener"})
  */
 class Character
 {
@@ -19,42 +34,51 @@ class Character
     private $id;
 
     /**
+     * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $displayName;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
-     */
-    private $displayPicture;
-
-    /**
+     * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $clientVersion;
 
     /**
+     * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="json")
      */
     private $data = [];
 
+    // Maybe autofill from server?
     /**
+     * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="datetime")
      */
     private $lastModificationDate;
 
     /**
+     * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="text")
      */
     private $checksum;
 
     /**
+     * @Groups({"character:read", "admin:write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="characters")
      * @ORM\JoinColumn(nullable=false)
+     * @IsValidOwner()
      */
     private $owner;
 
-    public function getId(): ?int
+    /**
+     * @Groups({"character:read", "character:write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\MediaObject")
+     */
+    private $avatar;
+
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -67,18 +91,6 @@ class Character
     public function setDisplayName(string $displayName): self
     {
         $this->displayName = $displayName;
-
-        return $this;
-    }
-
-    public function getDisplayPicture()
-    {
-        return $this->displayPicture;
-    }
-
-    public function setDisplayPicture($displayPicture): self
-    {
-        $this->displayPicture = $displayPicture;
 
         return $this;
     }
@@ -142,4 +154,18 @@ class Character
 
         return $this;
     }
+
+    public function getAvatar(): ?MediaObject
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?MediaObject $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+
 }

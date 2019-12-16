@@ -1,4 +1,8 @@
 api_platform:
+    title: "Optolith Sync"
+    version: "0.0.1-alpha"
+    description: This is the api endpoint for the official cloud sync infrastructure service for <a href="https://github.com/elyukai/optolith-client">Optolith Character Manager</a><br><br><a href="/security/loginForm">Test-Login</a>
+    show_webby: false
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:

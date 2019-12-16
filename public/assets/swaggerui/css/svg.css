@@ -1,0 +1,44 @@
+:root {
+  --gold: #826a3e;
+  --gold-50-bright: #79643c; /* 50% brightness */
+  --dark-gold: #5d4517;
+  --white: #f7f4ed;
+  --grey: #7a7a7a;
+  --dark-grey: #363636;
+  --black: #111;
+  --blue: #0075ac;
+  --bright-blue: #3bb8f1;
+}
+
+svg#logo .cls-1 {
+  fill: var(--gold);
+}
+
+svg#logo .cls-2 {
+  fill: none;
+  stroke: var(--gold);
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+}
+
+svg#logo-bright .cls-1, svg#logo:hover .cls-1 {
+  fill: var(--white);
+}
+
+svg#logo-bright .cls-2, svg#logo:hover .cls-2 {
+  fill: none;
+  stroke: var(--white);
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+}
+
+svg#footer-logo .cls-1 {
+  fill: var(--dark-grey);
+}
+
+svg#footer-logo .cls-2 {
+  fill: none;
+  stroke: var(--dark-grey);
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+}

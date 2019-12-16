@@ -2,32 +2,54 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
+ * @ApiResource(
+ *     collectionOperations={
+ *          "post"={
+ *              "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"
+ *          }
+ *     },
+ *     itemOperations={
+ *         "get"={"security"="is_granted('ROLE_ADMIN') or object == user"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN') or object == user"},
+ *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)"},
+ *         "patch"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)"}
+ *     },
+ *     normalizationContext={"groups"={"user:read"}},
+ *     denormalizationContext={"groups"={"user:write"}},
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(name="id", type="guid")
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @Groups({"user:read", "user:write"})
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
     /**
+     * @Groups({"admin:read", "admin:write"})
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
@@ -36,32 +58,49 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @Groups({"user:write"})
+     * @SerializedName("password")
+     * @Assert\NotBlank(groups={"create"})
      */
-    private $displayName;
+    private $plainPassword;
 
     /**
+     * @Groups({"user:read", "user:write"})
      * @ORM\Column(type="string", length=180, nullable=true)
      */
     private $email2;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"user:read", "user:write"})
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
-    private $displayPicture;
+    private $displayName;
 
     /**
+     * @Groups({"user:read"})
      * @ORM\OneToMany(targetEntity="App\Entity\Character", mappedBy="owner", orphanRemoval=true)
      */
     private $characters;
 
+    /**
+     * @Groups({"user:read", "user:write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\MediaObject")
+     */
+    private $avatar;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MediaObject", mappedBy="owner", orphanRemoval=true)
+     */
+    private $mediaObjects;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->mediaObjects = new ArrayCollection();
     }
 
-
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -136,19 +175,7 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
-    public function getDisplayName(): ?string
-    {
-        return $this->displayName;
-    }
-
-    public function setDisplayName(string $displayName): self
-    {
-        $this->displayName = $displayName;
-
-        return $this;
+        $this->plainPassword = null;
     }
 
     public function getEmail2(): ?string
@@ -163,14 +190,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDisplayPicture(): ?string
+    public function getDisplayName(): ?string
     {
-        return $this->displayPicture;
+        return $this->displayName;
     }
 
-    public function setDisplayPicture(?string $displayPicture): self
+    public function setDisplayName(string $displayName): self
     {
-        $this->displayPicture = $displayPicture;
+        $this->displayName = $displayName;
 
         return $this;
     }
@@ -202,6 +229,61 @@ class User implements UserInterface
                 $character->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?MediaObject
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?MediaObject $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MediaObject[]
+     */
+    public function getMediaObjects(): Collection
+    {
+        return $this->mediaObjects;
+    }
+
+    public function addMediaObject(MediaObject $mediaObject): self
+    {
+        if (!$this->mediaObjects->contains($mediaObject)) {
+            $this->mediaObjects[] = $mediaObject;
+            $mediaObject->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMediaObject(MediaObject $mediaObject): self
+    {
+        if ($this->mediaObjects->contains($mediaObject)) {
+            $this->mediaObjects->removeElement($mediaObject);
+            // set the owning side to null (unless already changed)
+            if ($mediaObject->getOwner() === $this) {
+                $mediaObject->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }
