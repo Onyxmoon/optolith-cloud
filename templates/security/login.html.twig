@@ -3,40 +3,56 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>
+            You are logged in as {{ app.user.username }}, <a href="{{ path('api_logout') }}">Logout</a>
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
+    <h2>API Login</h2>
+    <h3>Simulate JSON Login for using test tools</h3>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+    <form id="myForm" name="myForm" method="POST">
+        <div>
+            <input type="text" id="email" name="email" value="example@gmail.com">
         </div>
-    #}
+        <div>
+            <input type="password" id="password" name="password" value="123">
+        </div>
+        <input type="button" value="Submit!" onclick="submitInfo();">
+    </form>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    <script>
+        function submitInfo(){
+
+            let form = document.forms["myForm"];
+            let fd = new FormData(form);
+            let data = {};
+            for (let [key, prop] of fd) {
+                data[key] = prop;
+            }
+            VALUE = JSON.stringify(data, null, 2);
+            console.log(VALUE);
+
+            const myHeaders = new Headers();
+            myHeaders.append('Content-Type', 'application/json');
+
+            fetch('/api/login', {
+                method: 'POST',
+                headers: myHeaders,
+                mode: 'cors',
+                cache: 'default',
+                body: VALUE
+            })
+                .then(data => {
+                    console.log(data);
+                    if (data.status == 204) {
+                        window.location = "/api";
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
+    </script>
 {% endblock %}

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class JsonLoginSecurityController extends AbstractController
 {
     /**
-     * @Route("/security/jsonLogin", name="security_jsonLogin")
+     * @Route("/api/login", name="api_login")
      * @param IriConverterInterface $iriConverter
      * @return JsonResponse|Response
      */
@@ -28,7 +28,7 @@ class JsonLoginSecurityController extends AbstractController
     }
 
     /**
-     * @Route("security/logout", name="security_logout")
+     * @Route("api/logout", name="api_logout")
      * @throws Exception
      */
     public function logout() {

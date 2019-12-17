@@ -1,7 +1,30 @@
 api_platform:
     title: "Optolith Sync"
     version: "0.0.1-alpha"
-    description: This is the api endpoint for the official cloud sync infrastructure service for <a href="https://github.com/elyukai/optolith-client">Optolith Character Manager</a><br><br><a href="/security/loginForm">Test-Login</a>
+    description: This is the api endpoint for the official cloud sync infrastructure service for <a href="https://github.com/elyukai/optolith-client">Optolith Character Manager</a>
+        <br><br>
+        <b>Authentification</b>
+        <br><br>
+        The API requires authentication from a previously created user. A http-only cookie-based session is used as authentication medium and will be used for all further requests.
+        <br><br>
+        <b>Authentication request</b>
+        <br>Request type&#58; <code>POST</code>
+        <br>Content type&#58; <code>application/json</code>
+        <br>Request body&#58;
+        <br><code>{ email"&#58; "string", "password"&#58; "string" }</code>
+        <br><br>
+        <b>Authentication response on success</b>
+        <br>Response code&#58; <code>204</code>
+        <br>HttpOnly-cookie&#58; <code>PHPSESSIONID</code>
+        <br>Response header&#58; <code> ... location&#58; "api/user/[id]" ...</code>
+        <br>Response body&#58; <code><i>empty</i></code>
+        <br><br>
+        <b>Authentication response on fail</b>
+        <br>Response code&#58; <code>401</code>
+        <br>Response type&#58; <code>application/json</code>
+        <br>Response body&#58; <code>{"error":"[error-text e.g. Invalid credidentals]."}</code>
+        <br><br>
+        <a href="/security/loginForm">Web login for test purposes</a>
     show_webby: false
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']

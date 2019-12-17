@@ -19,28 +19,30 @@ security:
             anonymous: lazy
 
             json_login:
-                check_path: security_jsonLogin
+                check_path: api_login
                 username_path: email
                 password_path: password
 
             logout:
-                path: security_logout
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthentificatorAuthenticator
+                path: api_logout
+                target: api_entrypoint
+#            guard:
+#                authenticators:
+#                    - App\Security\LoginFormAuthentificatorAuthenticator
         main:
             anonymous: lazy
 
             json_login:
-                check_path: security_jsonLogin
+                check_path: api_login
                 username_path: email
                 password_path: password
 
             logout:
-                path: security_logout
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthentificatorAuthenticator
+                path: api_logout
+                target: api_entrypoint
+#            guard:
+#                authenticators:
+#                    - App\Security\LoginFormAuthentificatorAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
