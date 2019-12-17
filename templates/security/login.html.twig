@@ -1,27 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
+{% block title %}Optolith Sync - API Login Helper{% endblock %}
+{% block stylesheets %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/security/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/security/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/security/vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/security/vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/security/vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/security/css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/security/css/main.css') }}">
+    <!--===============================================================================================-->
+{% endblock %}
 {% block body %}
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('api_logout') }}">Logout</a>
-        </div>
-    {% endif %}
 
-    <h2>API Login</h2>
-    <h3>Simulate JSON Login for using test tools</h3>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <object type="image/svg+xml" data="{{ asset('assets/images/logo.svg') }}" alt="Optolith Sync"></object>
+                </div>
 
-    <form id="myForm" name="myForm" method="POST">
-        <div>
-            <input type="text" id="email" name="email" value="example@gmail.com">
-        </div>
-        <div>
-            <input type="password" id="password" name="password" value="123">
-        </div>
-        <input type="button" value="Submit!" onclick="submitInfo();">
-    </form>
+                <form id="myForm" class="login100-form validate-form">
+					<span class="login100-form-title">
+						Optolith Sync<br>API Login Helper
+					</span>
+                    {% if app.user %}
+                        <span>
+                            You are logged in as {{ app.user.username }}, <a href="{{ path('api_logout') }}">Logout</a>
+                        </span>
+                    {% endif %}
 
+                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" placeholder="E-Mail">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        <input class="input100" type="password" name="password" placeholder="Password">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="button" onclick="submitInfo();" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-12">
+						<span class="txt1">
+							Forgot
+						</span>
+                        <a class="txt2" href="#">
+                            Username / Password?
+                        </a>
+                    </div>
+
+                    <div class="text-center p-t-136">
+                        <a class="txt2" href="#">
+                            Create your Account
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!--===============================================================================================-->
+    <script src="{{ asset('/assets/security/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script src="{{ asset('/assets/security/vendor/bootstrap/js/popper.js') }}"></script>
+    <script src="{{ asset('/assets/security/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script src="{{ asset('/assets/security/vendor/select2/select2.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script src="{{ asset('/assets/security/vendor/tilt/tilt.jquery.min.js') }}"></script>
+    <script >
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="{{ asset('/assets/security/js/main.js') }}"></script>
     <script>
         function submitInfo(){
 
@@ -48,10 +124,15 @@
                     console.log(data);
                     if (data.status == 204) {
                         window.location = "/api";
+                    } else if (data.status == 401) {
+                        alert("Invalid Credentials");
+                    } else {
+                        alert("There was a unknown problem. Check your console.")
                     }
                 })
                 .catch((err) => {
                     console.error(err);
+                    alert("There was a unknown problem. Check your console.");
                 })
         }
     </script>

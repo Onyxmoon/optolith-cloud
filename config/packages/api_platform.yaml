@@ -24,7 +24,7 @@ api_platform:
         <br>Response type&#58; <code>application/json</code>
         <br>Response body&#58; <code>{"error":"[error-text e.g. Invalid credidentals]."}</code>
         <br><br>
-        <a href="/security/loginForm">Web login for test purposes</a>
+        <a href="/security/loginForm">Web login helper for test purposes</a>
     show_webby: false
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
