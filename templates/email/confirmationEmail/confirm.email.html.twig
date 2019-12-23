@@ -1,0 +1,13 @@
+{% extends 'email/base.email.html.twig' %}
+
+{% block title %}{{ subject|default("Confirm") }}{% endblock %}
+
+{% block heading %}Optolith Cloud | {{ subject|default("Confirm") }}{% endblock %}
+
+{% block content %}
+    {{ greetings }}
+    <p>
+        {{ text }}
+    </p>
+    <a href="{{ confirmationLink|default("#") }}" class="btn">{{ confirmationButtonText|default("Verify") }}</a>
+{% endblock %}

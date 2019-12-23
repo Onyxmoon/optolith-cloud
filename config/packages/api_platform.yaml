@@ -1,5 +1,5 @@
 api_platform:
-    title: "Optolith Sync"
+    title: "Optolith Cloud"
     version: "0.0.1-alpha"
     description: This is the api endpoint for the official cloud sync infrastructure service for <a href="https://github.com/elyukai/optolith-client">Optolith Character Manager</a>
         <br><br>
@@ -8,6 +8,7 @@ api_platform:
         The API requires authentication from a previously created user. A http-only cookie-based session is used as authentication medium and will be used for all further requests.
         <br><br>
         <b>Authentication request</b>
+        <br>Request destination&#58; <code>/api/login</code>
         <br>Request type&#58; <code>POST</code>
         <br>Content type&#58; <code>application/json</code>
         <br>Request body&#58;

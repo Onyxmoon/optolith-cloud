@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Optolith Cloud - {% block title %}Mail{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #7a7a7a;
+            font: 400 18px/1.1em "Alegreya Sans", sans-serif;
+        }
+        main, footer {
+            max-width: 700px;
+            width: 100%;
+        }
+        main {
+            padding: 60px 20px 20px;
+        }
+        footer {
+            padding: 20px 20px 60px;
+            color: #363636;
+            font-size: 0.95em;
+            line-height: 1.2em;
+        }
+        h1 {
+            color: #f7f4ed;
+            font-size: 2.2em;
+            line-height: 1.2em;
+            margin: 0 0 30px;
+        }
+        p {
+            margin: 20px 0 0;
+        }
+        a.btn {
+            margin: 20px 0 0;
+            border: 1px solid #79643c;
+            padding: 0 20px;
+            display: inline-flex;
+            align-items: center;
+            min-height: 40px;
+            min-width: 140px;
+            letter-spacing: 0.1em;
+            font: bold 1em/1em "Alegreya", serif;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        a.btn, a.btn:visited {
+            color: #79643c;
+        }
+        a.btn:hover {
+            color: #f7f4ed;
+            border-color: #f7f4ed;
+        }
+        a.btn:active {
+            color: #5d4517;
+            border-color: #5d4517;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>{% block heading %}Optolith Cloud | E-Mail{% endblock %}</h1>
+    {% block content %}
+
+    {% endblock %}
+</main>
+<footer>
+    <p>Dies ist eine automatisch generierte E-Mail. Wenn du auf diese E-Mail antwortest, wird sie an den Support weitergeleitet.</p>
+    <p class="legal">&copy; 2017-{{ "now"|date("Y") }} Optolith from Lukas Obermann and contributors</p>
+    <p class="legal">&copy; 2017-{{ "now"|date("Y") }} Optolith Cloud from Philipp Borucki and contributors</p>
+</footer>
+</body>
+</html>

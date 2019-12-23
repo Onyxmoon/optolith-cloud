@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en-US" target-language="de-DE" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="GF_NsyJ" resname="Hello">
+        <source>Hello</source>
+        <target>Hallo</target>
+      </trans-unit>
+      <trans-unit id="8hNrxHb" resname="Confirm your account">
+        <source>Confirm your account</source>
+        <target>Verifiziere deinen Account</target>
+      </trans-unit>
+      <trans-unit id="aRDe.Cj" resname="Welcome to the Optolith Cloud. With this e-mail you will get the ability to verify your account and confirm your e-mail address.">
+        <source>Welcome to the Optolith Cloud. With this e-mail you will get the ability to verify your account and confirm your e-mail address.</source>
+        <target>Willkommen in der Optolith Cloud. Mit dieser E-Mail erhälst du die Möglichkeit deinen Account zu verifizieren und deine E-Mail-Adresse zu bestätigen.</target>
+      </trans-unit>
+      <trans-unit id="UI5A.G_" resname="Verify account">
+        <source>Verify account</source>
+        <target>__Verify account</target>
+      </trans-unit>
+      <trans-unit id="2JT6mTU" resname="You are receiving this message because you have changed your e-mail address. Please verify your new address, then you can use it for future registrations.">
+        <source>You are receiving this message because you have changed your e-mail address. Please verify your new address, then you can use it for future registrations.</source>
+        <target>du erhälst diese Nachricht, da du deine E-Mail Adresse geändert hast. Bitte verifiziere deine neue Adresse, anschließend kannst du diese für zukünftige Anmeldungen verwenden.</target>
+      </trans-unit>
+      <trans-unit id="bG43Rd5" resname="Confirm your new mail address">
+        <source>Confirm your new mail address</source>
+        <target>Verifiziere deine neue E-Mail Adresse</target>
+      </trans-unit>
+      <trans-unit id="R3O0LKB" resname="Verify e-mail address">
+        <source>Verify e-mail address</source>
+        <target>E-Mail Adresse verifizieren</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

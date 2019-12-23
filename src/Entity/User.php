@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use App\Action\PatchUserCredentialsAction;
 
 /**
  * @ApiResource(
@@ -22,19 +25,65 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *         "get"={"security"="is_granted('ROLE_ADMIN') or object == user"},
  *         "delete"={"security"="is_granted('ROLE_ADMIN') or object == user"},
  *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)"},
- *         "patch"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)"}
+ *         "patch"={
+ *              "security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)",
+ *              "denormalization_context"={"groups"={"user:putpatch"}}
+ *          },
+ *          "patch_credentials"={
+ *              "deserialize"=false,
+ *              "security"="is_granted('ROLE_USER')",
+ *              "method"="PATCH",
+ *              "path"="/users/{id}/credentials",
+ *              "controller"=PatchUserCredentialsAction::class,
+ *              "denormalization_context"={"groups"={"user:credentials"}},
+ *              "openapi_context"={
+ *                  "summary" = "Updates user credentials",
+ *                  "description" = "Updates sensitive data of the user and therefore requires the user's current password in addition to a valid session. If the e-mail address changes, a confirmation from the user is required to verify the validity of the address. A confirmation request is sent to the new e-mail address. If the user confirms the change with the confirmation link, the new e-mail address becomes final can be used for future logins. Please note that from this point on all previously valid sessions become invalid and the user must log in again. A password change will take place immediately if the current password was correct.",
+ *                  "parameters"={
+ *                      {
+ *                          "name" = "id",
+ *                          "in" = "path",
+ *                          "type" = "string",
+ *                          "required" = "true"
+ *                      }
+ *                  },
+ *                  "requestBody" = {
+ *                      "required" = "true",
+ *                      "content" = {
+ *                          "application/json" = {
+ *                              "schema" = {
+ *                                  "type" = "object",
+ *                                  "required" = {"currentPassword"},
+ *                                  "properties" = {
+ *                                      "newEmail" = {
+ *                                          "type" = "string"
+ *                                      },
+ *                                      "newPassword" = {
+ *                                          "type" = "string"
+ *                                      },
+ *                                      "currentPassword" = {
+ *                                          "type" = "string"
+ *                                      }
+ *                                  }
+ *                              }
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
  *     },
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(name="id", type="guid")
      */
     private $id;
 
@@ -65,13 +114,7 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
-     * @Groups({"user:read", "user:write"})
-     * @ORM\Column(type="string", length=180, nullable=true)
-     */
-    private $email2;
-
-    /**
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user:read", "user:write", "user:putpatch"})
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
@@ -84,7 +127,7 @@ class User implements UserInterface
     private $characters;
 
     /**
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user:read", "user:write", "user:putpatch"})
      * @ORM\ManyToOne(targetEntity="App\Entity\MediaObject")
      */
     private $avatar;
@@ -94,13 +137,63 @@ class User implements UserInterface
      */
     private $mediaObjects;
 
+    /**
+     * @Groups({"user:read", "admin:write"})
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = false;
+
+    /**
+     * @Groups({"user:read", "admin:write"})
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $registrationDate;
+
+    /**
+     * @Groups({"admin:read", "admin:write"})
+     * @ORM\Column(type="guid", nullable=true)
+     * @ORM\GeneratedValue(strategy="UUID")
+     */
+    private $confirmationSecret;
+
+    /**
+     * @Groups({"admin:read", "admin:write"})
+     * @Assert\Choice({"account", "email"})
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $confirmationType = "account";
+
+    /**
+     * @Groups({"user:read", "admin:write"})
+     * @ORM\Column(type="boolean")
+     */
+    private $confirmedEmail = false;
+
+    /**
+     * @Groups({"user:read"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email()
+     */
+    private $newEmail;
+
+    /**
+     * @Groups({"user:read", "user:write"})
+     * @ORM\Column(type="string", length=42)
+     * @Assert\Locale(
+     *     canonicalize = true
+     * )
+     */
+    private $locale;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
         $this->mediaObjects = new ArrayCollection();
+        $this->confirmationSecret = $this->gen_uuid();
+        $this->registrationDate = new \DateTimeImmutable("now");
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -178,17 +271,6 @@ class User implements UserInterface
         $this->plainPassword = null;
     }
 
-    public function getEmail2(): ?string
-    {
-        return $this->email2;
-    }
-
-    public function setEmail2(?string $email2): self
-    {
-        $this->email2 = $email2;
-
-        return $this;
-    }
 
     public function getDisplayName(): ?string
     {
@@ -284,6 +366,112 @@ class User implements UserInterface
     public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getRegistrationDate(): ?\DateTimeImmutable
+    {
+        return $this->registrationDate;
+    }
+
+    public function setRegistrationDate(\DateTimeImmutable $registrationDate): self
+    {
+        $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    public function getConfirmationSecret(): ?string
+    {
+        return $this->confirmationSecret;
+    }
+
+    public function setConfirmationSecret(string $confirmationSecret): self
+    {
+        $this->confirmationSecret = $confirmationSecret;
+
+        return $this;
+    }
+
+    public function getConfirmationType(): ?string
+    {
+        return $this->confirmationType;
+    }
+
+    public function setConfirmationType(?string $confirmationType): self
+    {
+        $this->confirmationType = $confirmationType;
+
+        return $this;
+    }
+
+    public function getConfirmedEmail(): ?bool
+    {
+        return $this->confirmedEmail;
+    }
+
+    public function setConfirmedEmail(bool $confirmedEmail): self
+    {
+        $this->confirmedEmail = $confirmedEmail;
+
+        return $this;
+    }
+
+    public function getNewEmail(): ?string
+    {
+        return $this->newEmail;
+    }
+
+    public function setNewEmail(?string $newEmail): self
+    {
+        $this->newEmail = $newEmail;
+
+        return $this;
+    }
+
+    public function gen_uuid() {
+        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            // 32 bits for "time_low"
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+
+            // 16 bits for "time_mid"
+            mt_rand( 0, 0xffff ),
+
+            // 16 bits for "time_hi_and_version",
+            // four most significant bits holds version number 4
+            mt_rand( 0, 0x0fff ) | 0x4000,
+
+            // 16 bits, 8 bits for "clk_seq_hi_res",
+            // 8 bits for "clk_seq_low",
+            // two most significant bits holds zero and one for variant DCE1.1
+            mt_rand( 0, 0x3fff ) | 0x8000,
+
+            // 48 bits for "node"
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        );
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
 
         return $this;
     }

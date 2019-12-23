@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Validator\IsValidOwner;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,18 +35,24 @@ class Character
     private $id;
 
     /**
+     * @ApiProperty(
+     *     openapiContext={"required"=true})
      * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $displayName;
 
     /**
+     * @ApiProperty(
+     *     openapiContext={"required"=true, "minLength"=3, "example"="1.0.0"})
      * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $clientVersion;
 
     /**
+     * @ApiProperty(
+     *     openapiContext={"required"=true})
      * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="json")
      */
@@ -53,12 +60,16 @@ class Character
 
     // Maybe autofill from server?
     /**
+     * @ApiProperty(
+     *     openapiContext={"required"=true})
      * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="datetime")
      */
     private $lastModificationDate;
 
     /**
+     * @ApiProperty(
+     *     openapiContext={"required"=true})
      * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="text")
      */
@@ -73,6 +84,8 @@ class Character
     private $owner;
 
     /**
+     * @ApiProperty(
+     *     openapiContext={"required"=false})
      * @Groups({"character:read", "character:write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\MediaObject")
      */
