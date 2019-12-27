@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Validator\IsValidOwner;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -62,7 +63,7 @@ class Character
     /**
      * @ApiProperty(
      *     openapiContext={"required"=true})
-     * @Groups({"character:read", "character:write"})
+     * @Groups({"character:read"})
      * @ORM\Column(type="datetime")
      */
     private $lastModificationDate;
@@ -90,6 +91,11 @@ class Character
      * @ORM\ManyToOne(targetEntity="App\Entity\MediaObject")
      */
     private $avatar;
+
+    public function __construct()
+    {
+        $this->lastModificationDate = new \DateTimeImmutable("now");
+    }
 
     public function getId(): ?string
     {

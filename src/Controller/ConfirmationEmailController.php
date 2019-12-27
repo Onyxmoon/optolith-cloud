@@ -95,24 +95,24 @@ class ConfirmationEmailController extends AbstractController {
     }
 
     public function sendAccountConfirmEmail(User $user) {
-        $greetings = $this->translator->trans("Hello", [], "confirmationEmail", $user->getLocale()) . " " . $user->getDisplayName() . ",";
-        $text = $this->translator->trans("Welcome to the Optolith Cloud. With this e-mail you will get the ability to verify your account and confirm your e-mail address.", null, "confirmationEmail", $user->getLocale());
+        $greetings = $this->translator->trans("mail.hello", [], "confirmationEmail", $user->getLocale()) . " " . $user->getDisplayName() . ",";
+        $text = $this->translator->trans("mail.accountConfirm.text", [], "confirmationEmail", $user->getLocale());
 
         $accountConfirmMail = (new TemplatedEmail())
             ->from($this->fromAddress)
             ->to($user->getEmail())
-            ->subject($this->translator->trans("Confirm your account", [], "confirmationEmail", $user->getLocale()))
+            ->subject($this->translator->trans("mail.accountConfirm.subject", [], "confirmationEmail", $user->getLocale()))
 
             //Set template for rendering mail
             ->htmlTemplate("email/confirmationEmail/confirm.email.html.twig")
 
             //Pass variables for twig email template
             ->context([
-                "subject" => $this->translator->trans("Confirm your account", [], "confirmationEmail", $user->getLocale()),
+                "subject" => $this->translator->trans("mail.accountConfirm.subject", [], "confirmationEmail", $user->getLocale()),
                 "greetings" => $greetings,
                 "text" => $text,
                 "confirmationLink" => $this->router->generate('confirm_account', ['confirmationSecret' => $user->getConfirmationSecret()], UrlGeneratorInterface::ABSOLUTE_URL),
-                "confirmationButtonText" => $this->translator->trans("Verify account", [], "confirmationEmail", $user->getLocale())
+                "confirmationButtonText" => $this->translator->trans("mail.accountConfirm.button", [], "confirmationEmail", $user->getLocale())
             ]);
 
         try {
@@ -123,24 +123,24 @@ class ConfirmationEmailController extends AbstractController {
     }
 
     public function sendEmailConfirmEmail(User $user) {
-        $greetings = $this->translator->trans("Hello", [], "confirmationEmail", $user->getLocale()) . " " . $user->getDisplayName() . ",";
-        $text = $this->translator->trans("You are receiving this message because you have changed your e-mail address. Please verify your new address, then you can use it for future registrations.", [], "confirmationEmail", $user->getLocale());
+        $greetings = $this->translator->trans("mail.hello", [], "confirmationEmail", $user->getLocale()) . " " . $user->getDisplayName() . ",";
+        $text = $this->translator->trans("mail.emailConfirm.text", [], "confirmationEmail", $user->getLocale());
 
         $emailConfirmMail = (new TemplatedEmail())
             ->from($this->fromAddress)
             ->to($user->getNewEmail())
-            ->subject($this->translator->trans("Confirm your new mail address", [], "confirmationEmail", $user->getLocale()))
+            ->subject($this->translator->trans("mail.emailConfirm.subject", [], "confirmationEmail", $user->getLocale()))
 
             //Set template for rendering mail
             ->htmlTemplate("email/confirmationEmail/confirm.email.html.twig")
 
             //Pass variables for twig email template
             ->context([
-                "subject" => $this->translator->trans("Confirm your new mail address", [], "confirmationEmail", $user->getLocale()),
+                "subject" => $this->translator->trans("mail.emailConfirm.subject", [], "confirmationEmail", $user->getLocale()),
                 "greetings" => $greetings,
                 "text" => $text,
                 "confirmationLink" => $this->router->generate('confirm_email', ['confirmationSecret' => $user->getConfirmationSecret()], UrlGeneratorInterface::ABSOLUTE_URL),
-                "confirmationButtonText" => $this->translator->trans("Verify e-mail address", [], "confirmationEmail", $user->getLocale())
+                "confirmationButtonText" => $this->translator->trans("mail.emailConfirm.button", [], "confirmationEmail", $user->getLocale())
             ]);
 
         try {

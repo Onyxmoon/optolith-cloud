@@ -13,12 +13,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use App\Action\PatchUserCredentialsAction;
+use App\Action\CreateUserObjectAction;
 
 /**
  * @ApiResource(
  *     collectionOperations={
  *          "post"={
- *              "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"
+ *              "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')",
+ *              "controller"=CreateUserObjectAction::class
  *          }
  *     },
  *     itemOperations={
@@ -177,11 +179,12 @@ class User implements UserInterface
     private $newEmail;
 
     /**
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user:read", "user:write", "user:putpatch"})
      * @ORM\Column(type="string", length=42)
      * @Assert\Locale(
      *     canonicalize = true
      * )
+     * @Assert\NotBlank(groups={"create"})
      */
     private $locale;
 

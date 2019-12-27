@@ -27,6 +27,8 @@ class CharacterEntityListener
             dump($this->security->getUser());
             $character->setOwner($this->security->getUser());
         }
+
+        $character->setLastModificationDate(new \DateTimeImmutable("now"));
     }
 
     public function preUpdate(Character $character, PreUpdateEventArgs $event)
@@ -39,5 +41,7 @@ class CharacterEntityListener
             dump($this->security->getUser());
             $character->setOwner($this->security->getUser());
         }
+
+        $character->setLastModificationDate(new \DateTimeImmutable("now"));
     }
 }

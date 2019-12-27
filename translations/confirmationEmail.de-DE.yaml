@@ -1,9 +1,11 @@
 # translations/confirmationEmail.de-DE.yaml
 
-Hello: Hallo
-Confirm your account: Verifiziere deinen Account
-Welcome to the Optolith Cloud. With this e-mail you will get the ability to verify your account and confirm your e-mail address.: Willkommen in der Optolith Cloud. Mit dieser E-Mail erhälst du die Möglichkeit deinen Account zu verifizieren und deine E-Mail-Adresse zu bestätigen.
-Verify account: Account verifizieren
-You are receiving this message because you have changed your e-mail address. Please verify your new address, then you can use it for future registrations.: du erhälst diese Nachricht, da du deine E-Mail Adresse geändert hast. Bitte verifiziere deine neue Adresse, anschließend kannst du diese für zukünftige Anmeldungen verwenden.
-Confirm your new mail address: Verifiziere deine neue E-Mail Adresse
-Verify e-mail address: E-Mail Adresse verifizieren
+mail.hello: Hallo
+
+mail.accountConfirm.subject: Verifiziere deinen Account
+mail.accountConfirm.text: Willkommen in der Optolith Cloud. Mit dieser E-Mail erhälst du die Möglichkeit deinen Account zu verifizieren und deine E-Mail-Adresse zu bestätigen.
+mail.accountConfirm.button: Account verifizieren
+
+mail.emailConfirm.text: du erhälst diese Nachricht, da du deine E-Mail Adresse geändert hast. Bitte verifiziere deine neue Adresse, anschließend kannst du diese für zukünftige Anmeldungen verwenden. Bitte beachte, nach der Verifizierung wirst du auf all deinen bestehenden Geräten abgemeldet.
+mail.emailConfirm.subject: Verifiziere deine neue E-Mail Adresse
+mail.emailConfirm.button: E-Mail Adresse verifizieren

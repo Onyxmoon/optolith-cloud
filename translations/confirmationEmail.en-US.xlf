@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en-US" target-language="de-DE" datatype="plaintext" original="file.ext">
+  <file source-language="en-US" target-language="en-US" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -11,27 +11,27 @@
       </trans-unit>
       <trans-unit id="bdRwyQN" resname="mail.accountConfirm.subject">
         <source>mail.accountConfirm.subject</source>
-        <target>Verifiziere deinen Account</target>
+        <target>Confirm your account</target>
       </trans-unit>
       <trans-unit id="5wvDbYO" resname="mail.accountConfirm.text">
         <source>mail.accountConfirm.text</source>
-        <target>Willkommen in der Optolith Cloud. Mit dieser E-Mail erhälst du die Möglichkeit deinen Account zu verifizieren und deine E-Mail-Adresse zu bestätigen.</target>
+        <target>Welcome to the Optolith Cloud. With this e-mail you will get the ability to verify your account and confirm your e-mail address. After confirmation you're good to go!</target>
       </trans-unit>
       <trans-unit id="BorX5NA" resname="mail.accountConfirm.button">
         <source>mail.accountConfirm.button</source>
-        <target>Account verifizieren</target>
+        <target>Verify account</target>
       </trans-unit>
       <trans-unit id="yxYQaSe" resname="mail.emailConfirm.text">
         <source>mail.emailConfirm.text</source>
-        <target>du erhälst diese Nachricht, da du deine E-Mail Adresse geändert hast. Bitte verifiziere deine neue Adresse, anschließend kannst du diese für zukünftige Anmeldungen verwenden. Bitte beachte, nach der Verifizierung wirst du auf all deinen bestehenden Geräten abgemeldet.</target>
+        <target>You are receiving this message because you have changed your e-mail address. Please verify your new address, then you can use it for future logins. Please note, after verification you will be logged out on all your existing devices.</target>
       </trans-unit>
       <trans-unit id="_J4j.yi" resname="mail.emailConfirm.subject">
         <source>mail.emailConfirm.subject</source>
-        <target>Verifiziere deine neue E-Mail Adresse</target>
+        <target>Confirm your new mail address</target>
       </trans-unit>
       <trans-unit id="ZBMufis" resname="mail.emailConfirm.button">
         <source>mail.emailConfirm.button</source>
-        <target>E-Mail Adresse verifizieren</target>
+        <target>Verify e-mail address</target>
       </trans-unit>
     </body>
   </file>
