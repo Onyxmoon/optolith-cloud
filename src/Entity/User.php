@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -26,7 +25,10 @@ use App\Action\CreateUserObjectAction;
  *     itemOperations={
  *         "get"={"security"="is_granted('ROLE_ADMIN') or object == user"},
  *         "delete"={"security"="is_granted('ROLE_ADMIN') or object == user"},
- *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)"},
+ *         "put"=
+ *              {"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)",
+ *              "denormalization_context"={"groups"={"user:putpatch"}}
+ *          },
  *         "patch"={
  *              "security_post_denormalize"="is_granted('ROLE_ADMIN') or (object == user)",
  *              "denormalization_context"={"groups"={"user:putpatch"}}
@@ -159,6 +161,7 @@ class User implements UserInterface
     private $confirmationSecret;
 
     /**
+     * @var
      * @Groups({"admin:read", "admin:write"})
      * @Assert\Choice({"account", "email"})
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -166,12 +169,14 @@ class User implements UserInterface
     private $confirmationType = "account";
 
     /**
+     * @var boolean Testifies if the e-mail address has been confirmed
      * @Groups({"user:read", "admin:write"})
      * @ORM\Column(type="boolean")
      */
     private $confirmedEmail = false;
 
     /**
+     * @var string E-Mail address designated for change
      * @Groups({"user:read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Email()
@@ -179,6 +184,7 @@ class User implements UserInterface
     private $newEmail;
 
     /**
+     * @var string IETF language tag (BCP47)
      * @Groups({"user:read", "user:write", "user:putpatch"})
      * @ORM\Column(type="string", length=42)
      * @Assert\Locale(

@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="oJH9Ipz" resname="mail.hello">
         <source>mail.hello</source>
-        <target>Hallo</target>
+        <target>Hello</target>
       </trans-unit>
       <trans-unit id="bdRwyQN" resname="mail.accountConfirm.subject">
         <source>mail.accountConfirm.subject</source>

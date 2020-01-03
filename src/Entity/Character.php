@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Validator\IsValidOwner;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -45,9 +46,13 @@ class Character
 
     /**
      * @ApiProperty(
-     *     openapiContext={"required"=true, "minLength"=3, "example"="1.0.0"})
+     *     openapiContext={"required"=true, "example"="1.0.0"})
      * @Groups({"character:read", "character:write"})
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/",
+     *     message="Version format not as expected. Please refer to: https://semver.org/"
+     * )
      */
     private $clientVersion;
 

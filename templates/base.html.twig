@@ -10,10 +10,16 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="theme-color" content="#ffffff">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('assets/fomantic/semantic.min.css') }}">
+
+        </style>
+
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        <script src="{{ asset('assets/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/fomantic/semantic.min.js') }}"></script>
     </body>
 </html>
