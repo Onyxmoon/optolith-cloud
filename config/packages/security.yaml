@@ -16,7 +16,8 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: true
-            anonymous: lazy
+            anonymous: true
+            lazy: true
 
             json_login:
                 check_path: api_login
@@ -30,7 +31,8 @@ security:
 #                authenticators:
 #                    - App\Security\LoginFormAuthentificatorAuthenticator
         main:
-            anonymous: lazy
+            anonymous: true
+            lazy: true
 
             json_login:
                 check_path: api_login
