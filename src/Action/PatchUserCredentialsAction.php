@@ -70,6 +70,15 @@ final class PatchUserCredentialsAction extends AbstractController
                     //Mail is already in use by foreign user
                     if ($existingUserWithDesignatedMail != $user) {
                         throw new BadRequestHttpException("The new mail address is already in use");
+                    } else {
+                        //New mail address is users current confirmed mail address
+                        //Assume that user want to cancel a change because he sets his current address as new
+                        $user->setNewEmail(null);
+                        $user->setConfirmationSecret("");
+                        $user->setConfirmationType(null);
+                        $user->setConfirmedEmail(true);
+                        $this->getDoctrine()->getManager()->persist($user);
+                        $this->getDoctrine()->getManager()->flush();
                     }
                 } else {
                     //Mail is available

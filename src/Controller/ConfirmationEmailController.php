@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -77,6 +78,17 @@ class ConfirmationEmailController extends AbstractController {
             //Check confirmationType
             if ($user->getConfirmationType() != "email") {
                 throw new HttpException(500, "The secret is not for an mail confirmation!");
+            }
+
+            //Check if address was taken meanwhile
+            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $user->getNewEmail()]) != null) {
+                $user->setNewEmail(null);
+                $user->setConfirmationSecret("");
+                $user->setConfirmationType(null);
+                $user->setConfirmedEmail(true);
+                $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
+                throw new HttpException(500,"There is already a user who uses this e-mail address in the meantime.");
             }
 
             $user->setEmail($user->getNewEmail());

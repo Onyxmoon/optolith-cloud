@@ -15,9 +15,15 @@ use App\Action\PatchUserCredentialsAction;
 use App\Action\CreateUserObjectAction;
 
 /**
+ * @UniqueEntity(fields={"email"})
  * @ApiResource(
  *     collectionOperations={
  *          "post"={
+ *              "denormalization_context"={"groups"={"user:create"}},
+ *              "validation_groups"={"user:create"},
+ *              "openapi_context"={
+ *                  "description" = "Registers a new user. The user receives an activation request at the e-mail address provided, which must be confirmed. If this request has been fulfilled, the user account is operational.",
+ *              },
  *              "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')",
  *              "controller"=CreateUserObjectAction::class
  *          }
@@ -80,7 +86,6 @@ use App\Action\CreateUserObjectAction;
  *     denormalizationContext={"groups"={"user:write"}},
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
@@ -92,9 +97,10 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user:read", "user:write", "user:create"})
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email()
+     * @Assert\NotBlank(groups={"user:create"})
      */
     private $email;
 
@@ -111,16 +117,16 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @Groups({"user:write"})
+     * @Groups({"user:write", "user:create"})
      * @SerializedName("password")
-     * @Assert\NotBlank(groups={"create"})
+     * @Assert\NotBlank(groups={"user:create"})
      */
     private $plainPassword;
 
     /**
-     * @Groups({"user:read", "user:write", "user:putpatch"})
+     * @Groups({"user:read", "user:write", "user:putpatch", "user:create"})
      * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"user:create"})
      */
     private $displayName;
 
@@ -185,12 +191,13 @@ class User implements UserInterface
 
     /**
      * @var string IETF language tag (BCP47)
-     * @Groups({"user:read", "user:write", "user:putpatch"})
+     * @Groups({"user:read", "user:write", "user:putpatch", "user:create"})
      * @ORM\Column(type="string", length=42)
      * @Assert\Locale(
-     *     canonicalize = true
+     *     canonicalize = true,
+     *     groups={"user:putpatch", "user:create"}
      * )
-     * @Assert\NotBlank(groups={"create"})
+     * @Assert\NotBlank(groups={"user:create"})
      */
     private $locale;
 
