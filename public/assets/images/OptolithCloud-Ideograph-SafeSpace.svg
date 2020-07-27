@@ -1,0 +1,56 @@
+<svg id="Elements" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-3 {
+        fill: #826a3e;
+      }
+
+      .cls-4 {
+        clip-path: url(#clip-path-2);
+      }
+
+      .cls-5 {
+        fill: #111;
+      }
+
+      .cls-6 {
+        clip-path: url(#clip-path-3);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <polygon id="SVGID" class="cls-1" points="22 22 22 8 8 8 8 40 16 40 24 24 22 22"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <polygon id="SVGID-2" data-name="SVGID" class="cls-1" points="24 24 26 26 26 40 40 40 40 8 32 8 24 24"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <path class="cls-1" d="M24,8A16,16,0,1,0,40,24,16,16,0,0,0,24,8Zm0,24a8,8,0,1,1,8-8A8,8,0,0,1,24,32Z"/>
+    </clipPath>
+  </defs>
+  <g id="Color">
+    <g id="Ideograph">
+      <g>
+        <g class="cls-2">
+          <path class="cls-3" d="M24,12A12,12,0,1,1,12,24,12,12,0,0,1,24,12m0-4A16,16,0,1,0,40,24,16,16,0,0,0,24,8Z"/>
+        </g>
+        <g class="cls-4">
+          <path class="cls-5" d="M24,12A12,12,0,1,1,12,24,12,12,0,0,1,24,12m0-4A16,16,0,1,0,40,24,16,16,0,0,0,24,8Z"/>
+        </g>
+        <g class="cls-6">
+          <g>
+            <rect class="cls-5" x="24" y="26" width="4" height="14"/>
+            <rect class="cls-3" x="20" y="8" width="4" height="14"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
