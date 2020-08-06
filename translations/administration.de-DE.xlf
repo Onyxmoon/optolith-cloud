@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en-US" target-language="de-DE" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="FNIXR_x" resname="menu.label.item.dashboard">
+        <source>menu.label.item.dashboard</source>
+        <target>Übersicht</target>
+      </trans-unit>
+      <trans-unit id="yOwvOZi" resname="menu.label.section.cloudData">
+        <source>menu.label.section.cloudData</source>
+        <target>Daten</target>
+      </trans-unit>
+      <trans-unit id="8R8R0Fm" resname="menu.label.item.users">
+        <source>menu.label.item.users</source>
+        <target>Benutzer</target>
+      </trans-unit>
+      <trans-unit id="KMcoCl8" resname="menu.label.item.characters">
+        <source>menu.label.item.characters</source>
+        <target>Charaktere</target>
+      </trans-unit>
+      <trans-unit id="H_XlICB" resname="menu.label.section.system">
+        <source>menu.label.section.system</source>
+        <target>System</target>
+      </trans-unit>
+      <trans-unit id="Vk6uhrw" resname="entity.user.header.singular">
+        <source>entity.user.header.singular</source>
+        <target>Benutzer</target>
+      </trans-unit>
+      <trans-unit id="haNXGsT" resname="entity.user.header.plural">
+        <source>entity.user.header.plural</source>
+        <target>Benutzer</target>
+      </trans-unit>
+      <trans-unit id="9eMDbCj" resname="entity.user.label.id">
+        <source>entity.user.label.id</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="qd6FGTJ" resname="entity.user.label.displayName">
+        <source>entity.user.label.displayName</source>
+        <target>Anzeigename</target>
+      </trans-unit>
+      <trans-unit id="yg0.Qm_" resname="entity.user.label.email">
+        <source>entity.user.label.email</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="I9_OmL4" resname="entity.user.label.locale">
+        <source>entity.user.label.locale</source>
+        <target>Sprache</target>
+      </trans-unit>
+      <trans-unit id="vMA2..." resname="entity.user.label.isActive">
+        <source>entity.user.label.isActive</source>
+        <target>Benutzer aktiviert</target>
+      </trans-unit>
+      <trans-unit id="mp3jww7" resname="entity.user.label.confirmedEmail">
+        <source>entity.user.label.confirmedEmail</source>
+        <target>E-Mail bestätigt</target>
+      </trans-unit>
+      <trans-unit id="U2CcKdm" resname="entity.user.label.roles">
+        <source>entity.user.label.roles</source>
+        <target>Rechte</target>
+      </trans-unit>
+      <trans-unit id="rUSdqjQ" resname="entity.user.label.registrationDate">
+        <source>entity.user.label.registrationDate</source>
+        <target>Registrierungsdatum</target>
+      </trans-unit>
+      <trans-unit id="mnpLwRy" resname="entity.user.label.characters">
+        <source>entity.user.label.characters</source>
+        <target>Charaktere</target>
+      </trans-unit>
+      <trans-unit id="MOoYmvF" resname="entity.user.label.showCharacters">
+        <source>entity.user.label.showCharacters</source>
+        <target>Charaktere anzeigen</target>
+      </trans-unit>
+      <trans-unit id="03RgfRM" resname="entity.user.label.mediaObjects">
+        <source>entity.user.label.mediaObjects</source>
+        <target>Medien</target>
+      </trans-unit>
+      <trans-unit id="YwqaIY8" resname="entity.user.label.newPassword">
+        <source>entity.user.label.newPassword</source>
+        <target>Neues Passwort</target>
+      </trans-unit>
+      <trans-unit id="3k7HswM" resname="entity.character.header.singular">
+        <source>entity.character.header.singular</source>
+        <target>Charakter</target>
+      </trans-unit>
+      <trans-unit id="p2OwfG7" resname="entity.character.header.plural">
+        <source>entity.character.header.plural</source>
+        <target>Charaktere</target>
+      </trans-unit>
+      <trans-unit id="MBxjnkW" resname="entity.character.label.id">
+        <source>entity.character.label.id</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="cUeQlr2" resname="entity.character.label.displayName">
+        <source>entity.character.label.displayName</source>
+        <target>Anzeigename</target>
+      </trans-unit>
+      <trans-unit id="rxVpy91" resname="entity.character.label.owner">
+        <source>entity.character.label.owner</source>
+        <target>Ersteller</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

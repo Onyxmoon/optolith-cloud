@@ -14,8 +14,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CreateUserObjectAction extends AbstractController
 {
-    private $confirmationEmailController;
-    private $validator;
+    private ConfirmationEmailController $confirmationEmailController;
+    private ValidatorInterface $validator;
 
     public function __construct(ConfirmationEmailController $confirmationEmailController, ValidatorInterface $validator)
     {

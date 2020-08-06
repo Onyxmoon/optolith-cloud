@@ -14,9 +14,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class PatchUserCredentialsAction extends AbstractController
 {
-    private $passwordEncoder;
-    private $authorizationChecker;
-    private $confirmationEmailController;
+    private UserPasswordEncoderInterface $passwordEncoder;
+    private AuthorizationCheckerInterface $authorizationChecker;
+    private ConfirmationEmailController $confirmationEmailController;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder, AuthorizationCheckerInterface $authorizationChecker, ConfirmationEmailController $confirmationEmailController)
     {

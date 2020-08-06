@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use App\Action\PatchUserCredentialsAction;
 use App\Action\CreateUserObjectAction;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @UniqueEntity(fields={"email"})
@@ -233,7 +234,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->displayName;
     }
 
     /**
@@ -490,6 +491,11 @@ class User implements UserInterface
         $this->locale = $locale;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->displayName;
     }
 
 }
